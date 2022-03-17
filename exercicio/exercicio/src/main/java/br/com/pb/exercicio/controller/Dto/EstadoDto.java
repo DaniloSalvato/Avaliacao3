@@ -2,10 +2,7 @@ package br.com.pb.exercicio.controller.Dto;
 
 import br.com.pb.exercicio.modelo.Estado;
 import br.com.pb.exercicio.modelo.Regioes;
-
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 public class EstadoDto {
 
@@ -25,8 +22,8 @@ public class EstadoDto {
         this.area = estado.getArea();
     }
 
-    public static List<EstadoDto> converter(List<Estado> estados) {
-        return estados.stream().map(EstadoDto::new).collect(Collectors.toList());
+    public static Page<EstadoDto> converter(Page<Estado> estados) {
+        return estados.map(EstadoDto::new);
     }
 
         public Long getId () {

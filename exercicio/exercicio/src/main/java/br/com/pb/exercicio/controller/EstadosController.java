@@ -7,6 +7,10 @@ import br.com.pb.exercicio.modelo.Estado;
 import br.com.pb.exercicio.modelo.Regioes;
 import br.com.pb.exercicio.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -15,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,12 +29,13 @@ public class EstadosController {
     private EstadoRepository estadoRepository;
 
     @GetMapping//GET
-    public List<EstadoDto> listar(Regioes regiao){
+    public Page<EstadoDto> listar(@RequestParam(required = false) Regioes regiao,
+                                  @PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 10) Pageable paginacao){
     if(regiao == null){
-        java.util.List<Estado> topicos = estadoRepository.findAll();
-        return EstadoDto.converter(topicos);
+        Page<Estado> estados = estadoRepository.findAll(paginacao);
+        return EstadoDto.converter(estados);
     }else {
-        List<Estado> estados = estadoRepository.findByRegiao(regiao);
+        Page<Estado> estados = estadoRepository.findByRegiao(regiao, paginacao);
         return EstadoDto.converter(estados);
         }
     }

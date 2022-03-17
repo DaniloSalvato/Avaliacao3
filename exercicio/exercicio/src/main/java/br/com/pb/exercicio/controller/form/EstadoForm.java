@@ -2,11 +2,9 @@ package br.com.pb.exercicio.controller.form;
 
 import br.com.pb.exercicio.modelo.Estado;
 import br.com.pb.exercicio.modelo.Regioes;
-import br.com.pb.exercicio.repository.EstadoRepository;
 import com.sun.istack.NotNull;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+
 
 public class EstadoForm {
 

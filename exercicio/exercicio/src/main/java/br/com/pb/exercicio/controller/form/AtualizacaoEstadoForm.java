@@ -4,7 +4,7 @@ import br.com.pb.exercicio.modelo.Estado;
 import br.com.pb.exercicio.modelo.Regioes;
 import br.com.pb.exercicio.repository.EstadoRepository;
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.v2.util.QNameMap;
+
 
 
 public class AtualizacaoEstadoForm {
