@@ -1,0 +1,128 @@
+openapi: 3.0.1
+info:
+  title: API de estados
+  description: API para controlar a área e a população do estados
+  version: 0.0.1
+  contact:
+    name: Danilo Salvato
+    email: danilo_salvato@hotmail.com
+    url: https://www.linkedin.com/in/danilo-salvato/
+externalDocs:
+  description: Projeto no GIT HUB
+  url: https://github.com/DaniloSalvato/Avaliacao3
+servers:
+- url: http://localhost:8080/
+  description: API de estados
+paths:
+  /api/states:
+    get:
+      summary: Mostra todos os estados
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Estados"
+    post:
+      summary: Adiciona um novo estado
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                descricao:
+                  type: string
+      responses:
+        201:
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Estado"
+  /api/states/{id}:
+    parameters:
+    - name: id
+      in: path
+      schema:
+        type: integer
+      required: true
+    get:
+      summary: Busca um estdo pelo ID
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Estado"
+        404:
+          description: Especialidade não encontrada
+          content:
+            application/json:
+              example: "Not Found"
+    put:
+      summary: Atualiza um estado
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                nome:
+                  type: string
+                regiao:
+                  type: string
+                populacao: 
+                  type: number
+                capital:
+                  type: string
+                area: 
+                  type: number
+      responses:
+        201:
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Estado"
+    delete:
+      summary: Deleta um estado
+      responses:
+        200:
+          description: Sucesso
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Estado"
+        404:
+          description: Estado não encontrado
+          content:
+            application/json:
+              example: "Not Found"           
+                
+components:
+  schemas:
+    Estado:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        regiao:
+          type: string
+        populacao: 
+          type: number
+        capital:
+          type: string
+        area: 
+          type: number
+    Estados:
+      type: array
+      items:
+        $ref: "#/components/schemas/Estado"
+  
