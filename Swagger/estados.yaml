@@ -41,6 +41,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Estado"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  properties:
+                    campo: 
+                      type: string
+                    erro: 
+                      type: string
   /api/states/{id}:
     parameters:
     - name: id
@@ -49,7 +61,7 @@ paths:
         type: integer
       required: true
     get:
-      summary: Busca um estdo pelo ID
+      summary: Busca um estado pelo ID
       responses:
         200:
           description: Sucesso
@@ -58,7 +70,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Estado"
         404:
-          description: Especialidade não encontrada
+          description: Estado não encontrado
           content:
             application/json:
               example: "Not Found"
@@ -89,6 +101,23 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Estado"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  properties:
+                    campo: 
+                      type: string
+                    erro: 
+                      type: string         
+        404:
+          description: Estado não encontrado
+          content:
+            application/json:
+              example: "Not Found"  
     delete:
       summary: Deleta um estado
       responses:
