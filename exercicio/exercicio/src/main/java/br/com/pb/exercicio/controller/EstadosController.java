@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,14 +32,14 @@ public class EstadosController {
     private EstadoRepository estadoRepository;
 
     @GetMapping//GET
-    public Page<EstadoDto> listar(@RequestParam(required = false) Regioes regiao,
-                                  @PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 10) Pageable paginacao){
+    public List<EstadoDto> listar(@RequestParam(required = false) Regioes regiao,
+                                  @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao){
     if(regiao == null){
         Page<Estado> estados = estadoRepository.findAll(paginacao);
-        return EstadoDto.converter(estados);
+        return EstadoDto.converter(estados).getContent();
     }else {
         Page<Estado> estados = estadoRepository.findByRegiao(regiao, paginacao);
-        return EstadoDto.converter(estados);
+        return EstadoDto.converter(estados).getContent();
         }
     }
 

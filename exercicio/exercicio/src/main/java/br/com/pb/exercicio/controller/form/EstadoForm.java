@@ -2,20 +2,26 @@ package br.com.pb.exercicio.controller.form;
 
 import br.com.pb.exercicio.modelo.Estado;
 import br.com.pb.exercicio.modelo.Regioes;
-import com.sun.istack.NotNull;
 
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 public class EstadoForm {
 
-    @NotNull
+    @NotNull @NotEmpty
     private String nome;
+
     @NotNull
     private Regioes regiao;
+
     @NotNull
     private Long populacao;
-    @NotNull
+
+    @NotNull @NotEmpty
     private String capital;
+
     @NotNull
     private Long area;
 

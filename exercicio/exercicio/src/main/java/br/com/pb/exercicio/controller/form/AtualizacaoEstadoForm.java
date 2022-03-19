@@ -5,16 +5,17 @@ import br.com.pb.exercicio.modelo.Regioes;
 import br.com.pb.exercicio.repository.EstadoRepository;
 import com.sun.istack.NotNull;
 
+import javax.validation.constraints.NotEmpty;
 
 
 public class AtualizacaoEstadoForm {
-    @NotNull
+    @NotNull @NotEmpty
     private String nome;
     @NotNull
     private Regioes regiao;
     @NotNull
     private Long populacao;
-    @NotNull
+    @NotNull @NotEmpty
     private String capital;
     @NotNull
     private Long area;
