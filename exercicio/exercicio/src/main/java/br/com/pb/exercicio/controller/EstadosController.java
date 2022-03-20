@@ -8,9 +8,9 @@ import br.com.pb.exercicio.modelo.Regioes;
 import br.com.pb.exercicio.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -32,13 +32,25 @@ public class EstadosController {
     private EstadoRepository estadoRepository;
 
     @GetMapping//GET
-    public List<EstadoDto> listar(@RequestParam(required = false) Regioes regiao,
-                                  @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao){
+    public List<EstadoDto> listar(@RequestParam(required = false) Regioes regiao, @RequestParam(required = false) String ordenacao){
+
+        Sort sort = Sort.by("id").ascending();
+        Pageable pageable = PageRequest.of(0,10, sort);
+
+        if(ordenacao!=null){
+            if(ordenacao.equals("populacao")){
+                sort = Sort.by("populacao").descending();
+                pageable = PageRequest.of(0,10, sort);
+            }else if (ordenacao.equals("area")){
+                sort = Sort.by("area").descending();
+                pageable = PageRequest.of(0,10, sort);
+            }
+        }
     if(regiao == null){
-        Page<Estado> estados = estadoRepository.findAll(paginacao);
+        Page<Estado> estados = estadoRepository.findAll(pageable);
         return EstadoDto.converter(estados).getContent();
     }else {
-        Page<Estado> estados = estadoRepository.findByRegiao(regiao, paginacao);
+        Page<Estado> estados = estadoRepository.findByRegiao(regiao, pageable);
         return EstadoDto.converter(estados).getContent();
         }
     }
